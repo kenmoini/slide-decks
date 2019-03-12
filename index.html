@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Fierce Software Slide Decks - Launcher</title>
+  <link href="/lib/css/patternfly.css" rel="stylesheet" />
+  <style type="text/css">
+    .padded {
+      margin:3rem 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div style="text-align:center;width:50%;margin:3rem auto;">
+    <img src="/img/global/cropped-logo3.png" alt="Fierce Software" />
+    <h2 class="padded">Presentation Slide Decks</h2>
+    <div class="form-group padded">
+      <select class="form-control" id="deckSelection" onchange="myFunction()">
+        <option value="NA">Select a deck...</option>
+        <option value="FSW-Atomicorp-OSSECCon2019.html">Atomicorp - OSSEC Conf 2019</option>
+      </select>
+    </div>
+  </div>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("deckSelection").value;
+      if (x !== 'NA') {
+        window.location.href = x;
+      }
+    }
+  </script>
+</body>
+</html>
