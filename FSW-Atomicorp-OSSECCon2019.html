@@ -227,9 +227,14 @@
 			.siloHolder .silo.active {
 				background:rgba(255,255,255,0.8);
 			}
-			.reveal pre code.kemo-fix {
+
+			.reveal pre.kemo-fix {
 				max-height: 90vh;
-				min-height:60vh;
+				min-height: 75vh;
+			}
+			.reveal pre.kemo-fix code {
+				max-height: 90vh;
+				min-height: 75vh;
 				line-height: 2.25rem;
 				font-size: 2rem;
 			}
@@ -361,7 +366,7 @@
 					</section>
 
 					<section data-background-transition="fade" data-background-color="#009687">
-<pre style="position:absolute;"><code class="hljs kemo-fix" data-trim contenteditable>
+<pre class="kemo-fix" style="position:absolute;"><code class="hljs" data-trim contenteditable>
 ---
 - name: install and start apache
   hosts: all
