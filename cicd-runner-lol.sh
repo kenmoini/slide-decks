@@ -1,4 +1,6 @@
 #!/bin/bash
 
 chdir /home/ubuntu/slide-decks
-git pull
+git fetch --all
+git reset --hard origin/master
+#git pull
