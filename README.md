@@ -1,3 +1,60 @@
+# Slide Decks Documentation
+
+## reveal.js docs below
+
+## What is this?
+
+A collection of slide decks, presentations, what-have-you that have been used and shared by Fierce Software and a group of contributors.
+
+## How do I access the slides?
+
+The slides are hosted live at (https://slides.fiercesw.network/)[https://slides.fiercesw.network/] and can be viewed there at any time.  Zoom, Search, and Presenters Notes are enabled.  Slides are made to a specification of 1920x1080.
+
+## How do I load this locally or on my own server?
+
+### Locally
+
+1. Install [Node.js](http://nodejs.org/) (4.0.0 or later)
+
+2. Clone the reveal.js repository
+   ```sh
+   $ git clone https://github.com/hakimel/reveal.js.git
+   ```
+
+3. Navigate to the reveal.js folder
+   ```sh
+   $ cd reveal.js
+   ```
+
+4. Install dependencies
+   ```sh
+   $ npm install
+   ```
+
+5. Serve the presentation and monitor source files for changes
+   ```sh
+   $ npm start
+   ```
+
+6. Open <http://localhost:8000> to view your presentation
+
+   You can change the port by using `npm start -- --port=8001`.
+
+### Served
+
+1. Do the same steps as above, keeping to the same port so it can run as an unprivileaged user.
+2. Install nginx and create a reverse proxy to that port
+3. (Optional) Use Let's Encrypt for the public end of the proxy
+4. (Optional) Use a crontab entry with the time of **@reboot** to start the npm server with `npm server -- --prefix=/path/to/slide-decks`
+
+## Contributing
+
+1. Fork this repo
+2. Make a new branch in your repo, make your changes, commit to this branch
+3. Push your changes to your forked repo
+4. Create a Pull Request against this repository, comparing your branch with the contributions.
+
+
 # reveal.js [![Build Status](https://travis-ci.org/hakimel/reveal.js.svg?branch=master)](https://travis-ci.org/hakimel/reveal.js) <a href="https://slides.com?ref=github"><img src="https://s3.amazonaws.com/static.slid.es/images/slides-github-banner-320x40.png?1" alt="Slides" width="160" height="20"></a>
 
 A framework for easily creating beautiful presentations using HTML. [Check out the live demo](http://revealjs.com/).
