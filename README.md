@@ -16,9 +16,9 @@ The slides are hosted live at (https://slides.fiercesw.network/)[https://slides.
 
 1. Install [Node.js](http://nodejs.org/) (4.0.0 or later)
 
-2. Clone the reveal.js repository
+2. Clone this repository
    ```sh
-   $ git clone https://github.com/hakimel/reveal.js.git
+   $ git clone https://github.com/kenmoini/slide-decks.git
    ```
 
 3. Navigate to the reveal.js folder
