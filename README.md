@@ -23,7 +23,7 @@ The slides are hosted live at (https://slides.fiercesw.network/)[https://slides.
 
 3. Navigate to the reveal.js folder
    ```sh
-   $ cd reveal.js
+   $ cd slide-decks
    ```
 
 4. Install dependencies
