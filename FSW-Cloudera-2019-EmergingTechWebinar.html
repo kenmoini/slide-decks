@@ -1,0 +1,758 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>Automating Security Across the Enterprise with Ansible and OSSEC</title>
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/vs2015.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<style type="text/css">
+			.alt-text {
+				background:rgba(0,0,0,0.25);
+			}
+			.pull-left {
+				float:left !important;
+			}
+			.pull-right {
+				float:right !important;
+			}
+			.text-left {
+				text-align: left !important;
+			}
+			.text-center {
+				text-align: center !important;
+			}
+			.text-right {
+				text-align: right !important;
+			}
+			.mb-0 {
+				margin-bottom: 0 !important;
+			}
+			.mb-1 {
+				margin-bottom: 0.25rem !important;
+			}
+			.mb-2 {
+				margin-bottom: 0.5rem !important;
+			}
+			.mb-3 {
+				margin-bottom: 1rem !important;
+			}
+			.mb-4 {
+				margin-bottom: 1.5rem !important;
+			}
+			.mb-5 {
+				margin-bottom: 2.25rem !important;
+			}
+			.mt-0 {
+				margin-top: 0 !important;
+			}
+			.mt-1 {
+				margin-top: 0.25rem !important;
+			}
+			.mt-2 {
+				margin-top: 0.5rem !important;
+			}
+			.mt-3 {
+				margin-top: 1rem !important;
+			}
+			.mt-4 {
+				margin-top: 1.5rem !important;
+			}
+			.mt-5 {
+				margin-top: 2.25rem !important;
+			}
+			.ml-0 {
+				margin-left: 0 !important;
+			}
+			.ml-1 {
+				margin-left: 0.25rem !important;
+			}
+			.ml-2 {
+				margin-left: 0.5rem !important;
+			}
+			.ml-3 {
+				margin-left: 1rem !important;
+			}
+			.ml-4 {
+				margin-left: 1.5rem !important;
+			}
+			.ml-5 {
+				margin-left: 2.25rem !important;
+			}
+			.mr-0 {
+				margin-right: 0 !important;
+			}
+			.mr-1 {
+				margin-right: 0.25rem !important;
+			}
+			.mr-2 {
+				margin-right: 0.5rem !important;
+			}
+			.mr-3 {
+				margin-right: 1rem !important;
+			}
+			.mr-4 {
+				margin-right: 1.5rem !important;
+			}
+			.mr-5 {
+				margin-right: 2.25rem !important;
+			}
+			.pb-0 {
+				padding-bottom: 0 !important;
+			}
+			.pb-1 {
+				padding-bottom: 0.25rem !important;
+			}
+			.pb-2 {
+				padding-bottom: 0.5rem !important;
+			}
+			.pb-3 {
+				padding-bottom: 1rem !important;
+			}
+			.pb-4 {
+				padding-bottom: 1.5rem !important;
+			}
+			.pb-5 {
+				padding-bottom: 2.25rem !important;
+			}
+			.pt-0 {
+				padding-top: 0 !important;
+			}
+			.pt-1 {
+				padding-top: 0.25rem !important;
+			}
+			.pt-2 {
+				padding-top: 0.5rem !important;
+			}
+			.pt-3 {
+				padding-top: 1rem !important;
+			}
+			.pt-4 {
+				padding-top: 1.5rem !important;
+			}
+			.pt-5 {
+				padding-top: 2.25rem !important;
+			}
+			.pl-0 {
+				padding-left: 0 !important;
+			}
+			.pl-1 {
+				padding-left: 0.25rem !important;
+			}
+			.pl-2 {
+				padding-left: 0.5rem !important;
+			}
+			.pl-3 {
+				padding-left: 1rem !important;
+			}
+			.pl-4 {
+				padding-left: 1.5rem !important;
+			}
+			.pl-5 {
+				padding-left: 2.25rem !important;
+			}
+			.pr-0 {
+				padding-right: 0 !important;
+			}
+			.pr-1 {
+				padding-right: 0.25rem !important;
+			}
+			.pr-2 {
+				padding-right: 0.5rem !important;
+			}
+			.pr-3 {
+				padding-right: 1rem !important;
+			}
+			.pr-4 {
+				padding-right: 1.5rem !important;
+			}
+			.pr-5 {
+				padding-right: 2.25rem !important;
+			}
+			.text-alt, .text-alt * {
+				color:#42affa !important;
+			}
+			.text-alt-red, .text-alt-red * {
+				color:#ff2e43 !important;
+			}
+			.img-fix-max {
+				max-height:90vh !important;
+				max-width:90vw !important;
+				border:none !important;
+				box-shadow: none !important;
+				background: none !important;
+			}
+			.img-fix-stretch {
+				border:none !important;
+				box-shadow: none !important;
+				background: none !important;
+			}
+			.siloHolder {
+				display: inline-block;
+				margin: 0 auto;
+			}
+			.siloHolder .siloRow {
+				width:1440px;
+			}
+			.siloHolder .silo {
+				border-radius: 50%;
+				background: #FFF;
+				border: 0.2rem solid #000;
+				color:#333;
+				width:200px;
+				height:200px;
+				text-align: center;
+				margin:15px;
+				float:left;
+				line-height: 200px;
+			}
+			.siloHolder .silo.trans {
+				background:none;
+				border:0.2rem solid transparent;
+			}
+			.siloHolder .silo.active {
+				background:rgba(255,255,255,0.8);
+			}
+
+			.reveal pre.kemo-fix {
+				max-height: 90vh;
+				min-height: 75vh;
+			}
+			.reveal pre.kemo-fix code {
+				max-height: 90vh;
+				min-height: 75vh;
+				line-height: 2.25rem;
+				font-size: 2rem;
+			}
+			.list-unstyled {
+				list-style: none !important;
+				list-style-type: none !important;
+			}
+			.blockHolder {
+				width:100%;
+				float:left;
+			}
+			.blockHolder .block-4 {
+				width:28%;
+				margin:1%;
+				padding:1%;
+				background-color:rgba(0,0,0,0.5);
+				float:left;
+				color:#FFF;
+			}
+			.blockHolder .block-3 {
+				width:21%;
+				margin:1%;
+				padding:1%;
+				background-color:rgba(0,0,0,0.5);
+				float:left;
+				color:#FFF;
+			}
+			.blockHolder .block-8 {
+				width:60%;
+				margin:1%;
+				padding:1%;
+				background-color:rgba(0,0,0,0.5);
+				float:left;
+				color:#FFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background="/img/global/fierceSplash.png">
+				</section>
+				<section data-background-video="/img/global/kenmoini_WW.mp4">
+				</section>
+				<section>
+					<h1 class="text-left mb-4">Automating Security Across the Enterprise with Ansible and OSSEC</h1>
+					<h2 class="text-left alt-text pl-3 pt-3 pb-3 mb-5">Atomicorp and Ansible sitting in a tree...</h2>
+					<blockquote class="text-left mt-5 pl-3 pt-3 pb-3 pull-left">
+						<h3 class="text-alt mb-2">Ken Moini</h3>
+						Fierce Software &bull; Lead Solution Architect
+					</blockquote>
+				</section>
+				<section data-background="/img/global/fierceNASCAR.png" data-background-size="contain">
+				</section>
+				<section>
+					<h1 class="text-alt">Agenda</h1>
+					<p>&nbsp;</p>
+					<ol>
+						<li class="mb-3 mt-3"><h3>Automation: Because humans suck</h3></li>
+						<li class="mb-3 mt-3 text-alt"><h3>Ansible for Security</h3></li>
+						<li class="mb-3 mt-3"><h3>Atomicorp OSSEC</h3></li>
+						<li class="mb-3 mt-3 text-alt"><h3>A<sup>3</sup> - Automating Atomicorp with Ansible</h3></li>
+						<li class="mb-3 mt-3"><h3><em>Rube Goldberg Alert:</em> <span style="font-weight:normal">Automating secure systems of systems as a DevOps CI/CD construct</span></h3></li>
+					</ol>
+				</section>
+				<section>
+					<section data-background-color="#009687">
+						<h1>Automation</h1>
+						<h2 class="alt-text pt-3 pb-3">Anti-fail 101</h2>
+					</section>
+
+					<section data-background-transition="slide" data-background-color="#009687">
+						<img class="img-fix-stretch stretch" src="/img/events/ossecconf2019/automation-3154529_1920.jpg" />
+					</section>
+
+					<section data-background-transition="fade" data-background="/img/events/ossecconf2019/automaterepeatit.png" data-background-size="contain">
+					</section>
+
+					<section data-background-transition="fade" data-background-color="#009687">
+						<h1 class="pb-4">A look at 2009, or 2019?</h1>
+						<div class="siloHolder">
+							<div class="siloRow">
+								<div class="silo"></div>
+								<div class="silo active">Servers</div>
+								<div class="silo active">Cloud</div>
+								<div class="silo"></div>
+								<div class="silo active">Network</div>
+								<div class="silo trans"></div>
+							</div>
+							<div class="siloRow">
+								<div class="silo trans">
+								</div>
+								<div class="silo">
+								</div>
+								<div class="silo">
+								</div>
+								<div class="silo active">
+									Containers
+								</div>
+								<div class="silo">
+								</div>
+								<div class="silo">
+								</div>
+							</div>
+							<div class="siloRow">
+								<div class="silo active">Security</div>
+								<div class="silo trans"></div>
+								<div class="silo active">CI/CD</div>
+								<div class="silo"></div>
+								<div class="silo active">Apps</div>
+								<div class="silo trans"></div>
+							</div>
+						</div>
+					</section>
+
+					<section data-background-transition="fade" data-background-color="#009687">
+						<h1 class="pb-4">Challenges for Enterprise-wide Automation</h1>
+						<img class="img-fix-stretch stretch" src="/img/events/ossecconf2019/raw_triblock.png">
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/simpleScale.png" data-background-size="contain">
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/automationforeveryone.png" data-background-size="contain">
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/simplepowerfulagentless.png" data-background-size="contain">
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/sixblock.png" data-background-size="contain">
+					</section>
+
+					<section data-background-transition="fade" data-background-color="#009687">
+<pre class="kemo-fix" style="position:absolute;"><code class="hljs" data-trim contenteditable>
+---
+- name: install and start apache
+  hosts: all
+  vars:
+    http_port: 80
+    max_clients: 200
+  remote_user: root
+
+  tasks:
+  - name: install httpd
+    yum: pkg=httpd state=latest
+
+  - name: write the apache config file
+    template:
+      src: /srv/httpd.j2
+      dest: /etc/httpd.conf
+
+  - name: start httpd
+    service:
+      name: httpd
+      state: started
+      enabled: true
+</code></pre>
+						<div style="position:relative;top:100px;" class="fragment fade-up">
+							<img src="/img/events/ossecconf2019/ncagewow.gif" style="float:right;width:640px;height:360px;" />
+						</div>
+					</section>
+
+				</section>
+
+
+				<section>
+
+					<section>
+						<h1>Ansible for Security</h1>
+						<h2 class="alt-text pt-3 pb-3">Plays well with Blue/Red Teamers and SOC Analysts</h2>
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/tower.png" data-background-size="contain">
+					</section>
+
+					<section>
+						<h1>Ansible Tower for Security</h1>
+						<ul>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Central Hub of Automation</strong> - No Ansible CLI on admin laptops</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Event Streaming</strong> - View every job run, when, and by who</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Schedule Jobs</strong> - Push configuration recurringly and produce reports often</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Plays Well With Others</strong> - Ship to Splunk, pull in from Jenkins, notify Slack</h3></li>
+						</ul>
+					</section>
+
+					<section>
+						<h1>Ansible for <strong class="text-alt-red">Red Teams</strong></h1>
+						<div style="width:44%;float:left;margin:0 3%;">
+							<ul class="list-unstyled">
+								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Transport Mechanism</strong><br />Roll over SSH & WinRM</h3></li>
+								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Extensible</strong><br />Python powered</h3></li>
+								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Dynamic Inventory & Playbooks</strong><br />Like mad inception, bro</h3></li>
+							</ul>
+						</div>
+						<div style="width:50%;float:left;margin:0;">
+							<h2 class="fragment fade-up">You could...</h2>
+							<ul>
+								<li class="fragment fade-up pt-2 pb-2"><h3><strong class="text-alt-red">Pop shells</strong></h3></li>
+								<li class="fragment fade-up pt-2 pb-2"><h3>Interact with network devices</h3></li>
+								<li class="fragment fade-up pt-2 pb-2"><h3><strong class="text-alt-red">Build self-propogating payloads</strong></h3></li>
+								<li class="fragment fade-up pt-2 pb-2"><h3>..and more!</h3></li>
+							</ul>
+							<br />
+							<img class="fragment fade-up" src="/img/events/ossecconf2019/evildevil.gif" width="70%" />
+						</div>
+					</section>
+
+					<section>
+						<h1>Ansible for <strong class="text-alt">Blue Teams</strong></h1>
+						<ul>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Cross-platform</strong> - Windows, *nix, Mac, IoT, Network</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Mandate Specifications</strong> - Don't let a puny human change or reset something</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Respond Faster</strong> - Detect, decide, & deploy automatically</h3></li>
+							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Audits & Reporting</strong> - Don't just set, but also get facts and postures to produce reports or act as glue between other systems</h3></li>
+						</ul>
+					</section>
+
+					<section>
+						<h1 class="pb-4">OpenSCAP for Compliance</h1>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapwelcome.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">NIST 800-171 for RHEL 7</h1>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapworkbench-800-171.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">Initial Results</h1>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapresults.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">HTML Export & Scoring</h1>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/complianceScore.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">Auto Remediation</h1>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/betterComplianceScore.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">POW!</h1>
+						<img class="stretch img-fix-stretch" width="80%" src="/img/events/ossecconf2019/bigmissionaccomblished.jpg">
+					</section>
+
+					<section>
+						<h1 class="pb-4">Not Good Enough</h1>
+						<img class="stretch img-fix-stretch" width="60%" src="/img/events/ossecconf2019/wrong.gif">
+					</section>
+
+					<section>
+						<h1 class="pb-4">Not Good Enough</h1>
+						<ul>
+							<li class="fragment fade-up text-alt"><h3 class="pt-3 pb-3">Host-based Intrusion Detection</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Anti-{virus,malware,rootkit}</h3></li>
+							<li class="fragment fade-up text-alt"><h3 class="pt-3 pb-3">Aggrigation & Federation</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Security is a bigger onion</h3></li>
+						</ul>
+					</section>
+
+				</section>
+
+
+				<section>
+
+					<section data-background-color="#1a3f67">
+						<img class="img-fix-max" width="20%" src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png">
+						<h1>Atomicorp OSSEC</h1>
+						<h2 class="alt-text pt-3 pb-3">OH - ES - SEK</h2>
+					</section>
+
+					<section data-background-color="#1a3f67">
+						<img class="img-fix-max mb-5" width="50%" src="/img/events/ossecconf2019/ac-logo-horizontal-white.png">
+						<ul>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">The company behind OSSEC</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Builds upon community OSSEC</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Advanced Machine Learning & Integrations</h3></li>
+						</ul>
+					</section>
+
+					<section data-background-color="#1a3f67">
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/ossecarch.png">
+					</section>
+
+					<section data-background-color="#1a3f67">
+						<h1 class="pb-5">Key Highlights</h1>
+						<ul class="pt-5" style="float:left;width:45%;margin:0 2%;">
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Checks many boxes all at once</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Everything is a file</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Automation Friendly</h3></li>
+							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Super simple</h3></li>
+						</ul>
+						<div style="float:left;width:45%;" class="fragment fade-up">
+							<img src="/img/events/ossecconf2019/ncagewink.gif" style="float:right;width:640px;height:600px;" />
+						</div>
+					</section>
+
+				</section>
+
+
+				<section>
+
+					<section data-background="/img/events/ossecconf2019/fusion.jpg" data-background-size="cover">
+						<h1 style="position:absolute;top:45vh;padding:3rem;background-color:rgba(0,0,0,0.85);">Automating Atomicorp with Ansible</h1>
+					</section>
+
+					<section>
+						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/AEO.png">
+					</section>
+
+					<section>
+						<h1>Use Cases</h1>
+						<ul class="list-unstyled" style="text-align:right;width:45%;margin:0 2%;float:left;">
+							<li class="fragment fade-up"><h3><strong class="text-alt">Deploy Agents</strong></h3></li>
+							<li class="fragment fade-up"><h3><strong>Infrastructure Security as Code</strong></h3></li>
+							<li class="fragment fade-up"><h3><strong class="text-alt">Multi-Layer Security</strong></h3></li>
+							<li class="fragment fade-up"><h3><strong>Secure System of Systems Deployment</strong></h3></li>
+						</ul>
+						<div style="float:left;width:45%;" class="fragment fade-up">
+							<img src="/img/events/ossecconf2019/wow.gif" style="float:right;width:500px;height:400px;" />
+						</div>
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/Dangerous-to-go-Alone-Breath-of-the-Wild.jpg" data-background-size="cover"></section>
+
+					<section>
+						<h1>Don't forget your...</h1>
+						<ul class="list-unstyled">
+							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">Source Code Management</strong> - GitHub, GitLab, BitBucket, etc</h3></li>
+							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">CI/CD Engine</strong> - CloudBees Jenkins</h3></li>
+							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">Similar Infrastructure</strong> - Can't run software for rockets like you do emulators</h3></li>
+						</ul>
+					</section>
+
+				</section>
+
+				<section>
+
+					<section data-background="/img/events/ossecconf2019/rube.jpeg">
+						<h1 style="position:absolute;top:45vh;padding:3rem;background-color:rgba(0,0,0,0.85);">The Rube Goldberg of IT</h1>
+					</section>
+
+					<section>
+						<div class="blockHolder">
+
+							<div class="block-3 fragment fade-up">
+								<h2>Dev</h2>
+								<h3 class="text-alt">Containers</h3>
+								<h3>CI/CD Pipeline</h3>
+								<h3 class="text-alt">Security Automation</h3>
+							</div>
+							<div class="block-3 fragment fade-up">
+								<h2>Test</h2>
+								<h3 class="text-alt">Containers</h3>
+								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
+							</div>
+							<div class="block-3 fragment fade-up">
+								<h2>Prod</h2>
+								<h3 class="text-alt">Containers</h3>
+								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
+							</div>
+							<div class="block-3 fragment fade-up">
+								<h2>Enclave</h2>
+								<h3 class="text-alt">SOC</h3>
+								<h3>Management</h3>
+								<h3 class="text-alt">Orchestration</h3>
+								<h3>Auth</h3>
+								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
+							</div>
+
+						</div>
+					</section>
+
+					<section>
+						<div class="blockHolder">
+							<div class="block-4">
+								<h2>Dev</h2>
+								<h3 class="text-alt">Containers</h3>
+								<h3>CI/CD Pipeline</h3>
+								<h3 class="text-alt">Security Automation</h3>
+							</div>
+
+							<div class="fragment fade-up">
+								<div class="block-8">
+									<img src="/img/events/ossecconf2019/rh-ocp-icon.png" width="45%" style="margin:2%;" class="img-fix-max fragment fade-up" />
+									<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" style="margin:2%;" width="45%" class="img-fix-max fragment fade-up" /><br />
+									<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="45%" style="margin:2%;" class="img-fix-max fragment fade-up" />
+									<img src="/img/events/ossecconf2019/ac-logo-horizontal-white.png" width="45%" style="margin:2%;position:relative;bottom:8vh;" class="img-fix-max fragment fade-up" /><br />
+									<img src="/img/events/ossecconf2019/gitlab-logo-white-rgb.png" width="45%" class="img-fix-max fragment fade-up" />
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<div class="blockHolder">
+							<div class="block-4 fragment fade-up">
+								<img src="/img/events/ossecconf2019/developer-winning.gif" width="100%" class="img-fix-max" />
+							</div>
+							<div class="block-4 fragment fade-up">
+								<img src="/img/events/ossecconf2019/gitlab-logo-white-rgb.png" width="100%" class="img-fix-max mt-5 pt-3" />
+							</div>
+							<div class="block-4 fragment fade-up">
+								<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" width="100%" class="pl-3 img-fix-max" />
+							</div>
+						</div>
+					</section>
+				</section>
+
+				<section>
+					<div class="blockHolder">
+						<div class="block-4">
+							<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" width="100%" class="pl-3 img-fix-max" />
+						</div>
+						<div class="block-4 fragment fade-up">
+							<img src="/img/events/ossecconf2019/builder.gif" width="100%" class="img-fix-max" />
+						</div>
+						<div class="block-4 fragment fade-up">
+							<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
+						</div>
+					</div>
+				</section>
+
+				<section>
+					<div class="blockHolder">
+						<div class="block-4 text-center">
+							<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
+						</div>
+
+						<div class="block-4 fragment fade-up text-center">
+							<img src="/img/events/ossecconf2019/BouncyInconsequentialEasteuropeanshepherd-small.gif" width="100%" class="img-fix-max" />
+						</div>
+						<div class="block-4 fragment fade-up text-center">
+							<img src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png" width="100%" class="img-fix-max mt-5 pt-4" />
+						</div>
+					</div>
+				</section>
+
+
+				<section>
+					<section>
+						<div class="blockHolder">
+							<div class="block-4 text-center">
+								<img src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png" width="100%" class="img-fix-max mt-5 pt-4" />
+							</div>
+							<div class="block-4 fragment fade-up text-center">
+								<img src="/img/events/ossecconf2019/250s1ae.gif" width="100%" class="img-fix-max" />
+							</div>
+
+							<div class="block-4 fragment fade-up text-center">
+								<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
+							</div>
+						</div>
+					</section>
+					<section>
+						<img src="/img/events/ossecconf2019/radialsoup.png" width="100%" class="img-fix-stretch stretch" />
+					</section>
+
+					<section data-background="/img/events/ossecconf2019/Smart-Factory.jpg">
+						<h1 style="padding:3rem;position:absolute;top:75vh;background-color:rgba(0,0,0,0.85);">Secure Software Factory</h1>
+					</section>
+
+					<section data-background-color="#539536">
+						<img src="/img/events/ossecconf2019/compliance.gif" class="img-fix-stretch stretch" />
+					</section>
+
+				</section>
+
+				<section data-background="/img/events/ossecconf2019/questions-anyone-anyone.jpg" data-background-size="contain">
+				</section>
+
+				<section data-background="/img/global/thankyou.png" data-background-size="contain">
+				</section>
+
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				// The "normal" size of the presentation, aspect ratio will be preserved
+				// when the presentation is scaled to fit different resolutions. Can be
+				// specified using percentage units.
+				width: 1920,
+				height: 1080,
+
+				// Factor of the display size that should remain empty around the content
+				margin: 0.1,
+
+				// Bounds for smallest/largest possible scale to apply to content
+				minScale: 0.2,
+				maxScale: 1.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/search/search.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
+				]
+			});
+		</script>
+	</body>
+</html>
