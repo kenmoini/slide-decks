@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>Automating Security Across the Enterprise with Ansible and OSSEC</title>
+		<title>Cloudera Emerging Technology Webinar</title>
 
 		<link rel="stylesheet" href="css/reveal.css">
 		<link rel="stylesheet" href="css/theme/black.css">
@@ -20,7 +20,11 @@
 			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
 			document.getElementsByTagName( 'head' )[0].appendChild( link );
 		</script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 		<style type="text/css">
+			.text-white {
+				color:#FFF !important;
+			}
 			.alt-text {
 				background:rgba(0,0,0,0.25);
 			}
@@ -270,6 +274,81 @@
 				float:left;
 				color:#FFF;
 			}
+			.text-shadow {
+			  text-shadow: 3px 3px 8px rgba(0,0,0,0.9) !important;
+			}
+			.timeline-container {
+				width:100%;
+				padding:0;
+				margin: 0;
+			}
+			.timeline-container .middle-line {
+				border-left:3px solid #000;
+				width:1px;
+				float: left;
+				height:100vh;
+			}
+			.timeline-container .left {
+				float:left;
+				width:calc(50% - 2px);
+			}
+			.timeline-container .right {
+				float:left;
+				width:calc(50% - 2px);
+			}
+			.timeline-container .right h3 {
+			    float: left;
+			    margin-left: 1rem;
+			    margin-top: 5rem;
+			}
+			.timeline-container .right h3:before {
+			    content: " ";
+			    border-top: 1px solid #000;
+			    width: 6rem;
+			    height: 3px;
+			    display: inline-block;
+			    position: relative;
+			    bottom: 0.65rem;
+			    margin-right: 1rem;
+			}
+			.timeline-container .left h3 {
+			    float: right;
+			    margin-right: 1rem;
+			    margin-top: 5rem;
+			}
+			.timeline-container .left h3:after {
+			    content: " ";
+			    border-top: 1px solid #000;
+			    width: 6rem;
+			    height: 3px;
+			    display: inline-block;
+			    position: relative;
+			    bottom: 0.65rem;
+			    margin-left: 1rem;
+			}
+			.timeline-container .event {
+			    float:left;
+					width:100%;
+			}
+			.timeline-container .event .body {
+			    display: inline-block;
+			}
+			.timeline-container .right .event .body {
+
+			}
+			.timeline-container .left .event .body {
+
+			}
+			.white-out:after {
+	        position: absolute;
+	        content: '';
+	        display: block;
+	        top: 0;
+	        left: 0;
+	        right: 0;
+	        bottom: 0;
+	        background: rgba(255,255,255,.5);
+	    }
 		</style>
 	</head>
 	<body>
@@ -277,49 +356,274 @@
 			<div class="slides">
 				<section data-background="/img/global/fierceSplash.png">
 				</section>
+				<section data-background="/img/global/fierceSplash.png">
+					<marquee style="position:absolute;top:90vh;left:0;width:100%;background:rgba(0,0,0,0.5);padding:1rem;">The webinar will begin shortly.</marquee>
+				</section>
 				<section data-background-video="/img/global/kenmoini_WW.mp4">
 				</section>
-				<section>
-					<h1 class="text-left mb-4">Automating Security Across the Enterprise with Ansible and OSSEC</h1>
-					<h2 class="text-left alt-text pl-3 pt-3 pb-3 mb-5">Atomicorp and Ansible sitting in a tree...</h2>
-					<blockquote class="text-left mt-5 pl-3 pt-3 pb-3 pull-left">
-						<h3 class="text-alt mb-2">Ken Moini</h3>
-						Fierce Software &bull; Lead Solution Architect
-					</blockquote>
+				<section data-background="/img/global/backgrounds/art-artistic-background-247676.jpg" data-background-size="cover">
+					<div class="pt-5 pb-5 pl-5 pr-5" style="background-color:rgba(0,0,0,0.75);">
+						<div class="text-left">
+							<img class="img-fix-stretch" src="/img/global/vendor_logos/Cloudera_logo_white.png" alt="Cloudera" />
+						</div>
+						<h1 class="text-left mb-4">Emerging Technology Webinar</h1>
+						<h2 class="text-left alt-text pl-3 pt-3 pb-3 mb-5">Past, present, and future</h2>
+						<blockquote class="text-left mt-5 pl-3 pt-3 pb-3 pull-left">
+							<h3 class="text-alt mb-2">Ken Moini</h3>
+							Fierce Software &bull; Lead Solution Architect
+						</blockquote>
+					</div>
+
+					<aside class="notes">
+						Welcome everyone, and thank you for joining us today for our Emerging Technology webinar, in partnership with Cloudera.<br />
+						My name is Ken Moini and I’m the Lead Solution Architect at Fierce Software.<br />
+					</aside>
 				</section>
 				<section data-background="/img/global/fierceNASCAR.png" data-background-size="contain">
+					<aside class="notes">
+						Fierce Software is a small, woman-owned Value-Added Reseller.  Our strengths are in enterprise open-source solutions, primarily in secure platforms, DevOps, and Data Analytics.<br />
+						We offer our customers the sales, technical, and delivery expertise required to compose complex solutions, and enable them with some of our value adds such as complimentary training, webinars, and workshops.<br />
+						Today we'll be talking about some of the emerging trends and technologies around Data.
+					</aside>
+				</section>
+				<section data-background="/img/global/backgrounds/sky-828648_1920-min.jpg" data-background-size="cover">
+					<h1 class="text-shadow">"There's a digital revolution taking place both in and out of government in favor of open-sourced data, innovation, and collaboration."</h1>
+					<h3>Kathleen Sebelius, Former United States Secretary of Health and Human Services</h3>
+					<aside class="notes">
+						And there are some powerful changes around Big Data, Data Analytics, and Data Science.<br />
+						These changes can either produce a better more cohesive experience, or drive devistating division.<br />
+						Whether you're a nation state, a flush large enterprise, or a resource-strapped organization, data will either make or break you.<br />
+					</aside>
 				</section>
 				<section>
 					<h1 class="text-alt">Agenda</h1>
 					<p>&nbsp;</p>
 					<ol>
-						<li class="mb-3 mt-3"><h3>Automation: Because humans suck</h3></li>
-						<li class="mb-3 mt-3 text-alt"><h3>Ansible for Security</h3></li>
-						<li class="mb-3 mt-3"><h3>Atomicorp OSSEC</h3></li>
-						<li class="mb-3 mt-3 text-alt"><h3>A<sup>3</sup> - Automating Atomicorp with Ansible</h3></li>
-						<li class="mb-3 mt-3"><h3><em>Rube Goldberg Alert:</em> <span style="font-weight:normal">Automating secure systems of systems as a DevOps CI/CD construct</span></h3></li>
+						<li class="mb-3 mt-3"><h3>A brief history of Hadoop</h3></li>
+						<li class="mb-3 mt-3 text-alt"><h3>Evolution of Enterprise Data</h3></li>
+						<li class="mb-3 mt-3"><h3>Say "Hello" to the new Cloudera</h3></li>
+						<li class="mb-3 mt-3 text-alt"><h3>Product and Engineering Roadmap</h3></li>
+						<li class="mb-3 mt-3"><h3>Cloudera in your organization</h3></li>
+						<li class="mb-3 mt-3 text-alt"><h3><em>Demonstration of Cloudera Data Science Workbench</em></h3></li>
+						<li class="mb-3 mt-3"><h3>Next Steps - How to get started</h3></li>
 					</ol>
+					<aside class="notes">
+						Before we get too deep into the esoteric-nature of life, love, and data, we'll take a look at how some of this all started.<br />
+						Since IT Modernization has been driven hand-in-hand with Data Management, we'll see how things have changed over the years, including a recent change from Hortonworks and Cloudera.<br />
+						We'll take you through a peak into what's in store, how it affects you, what your next steps are, and there's even a little demo at the end of this - so long as Murphy doesn't show up.
+					</aside>
 				</section>
 				<section>
-					<section data-background-color="#009687">
-						<h1>Automation</h1>
-						<h2 class="alt-text pt-3 pb-3">Anti-fail 101</h2>
+					<section data-background-color="#65c2cb">
+						<h1>Hadoop</h1>
+						<h2 class="alt-text text-white pt-3 pb-3">A History</h2>
+						<aside class="notes">
+							In order to know how we got to where we are today, we should take a brief look back at how the Hadoop ecosystem was planted and grew.
+						</aside>
 					</section>
 
-					<section data-background-transition="slide" data-background-color="#009687">
-						<img class="img-fix-stretch stretch" src="/img/events/ossecconf2019/automation-3154529_1920.jpg" />
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<img class="img-fix-stretch stretch" src="/img/events/cloudera_webinar/0_ecwCzdaur3JBTSr1.png" />
+						<aside class="notes">
+							Most think of Hadoop and this Yellow Elephant pops into their head.<br />
+							The next thought usually goes to "something something big databases" however Hadoop is much more than a solution to the limitations of traditional Relational Databases.<br />
+						</aside>
 					</section>
 
-					<section data-background-transition="fade" data-background="/img/events/ossecconf2019/automaterepeatit.png" data-background-size="contain">
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<div class="timeline-container timeline-vertical">
+							<div class="left">
+								<div class="event fragment fade-right" style="margin-top:20vh;">
+									<h3>1997-98</h3>
+									<div class="body">
+										<h2>Lucene</h2>
+										<p>Scalable Search</p>
+										<p><em>What powers Google Searches</em></p>
+									</div>
+								</div>
+							</div>
+							<div class="middle-line">
+							</div>
+							<div class="right">
+								<div class="event fragment fade-left" style="margin-top:50vh;">
+									<h3>2001</h3>
+									<div class="body">
+										<h2>Nutch</h2>
+										<p>Crawl the whole Internet</p>
+										<p><em>How hard could it be?</em></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<aside class="notes">
+							The Hadoop ecosystem can trace its roots back to the early days of the Internet and everything we know and use today.<br />
+							In 1997, Doug Cutting started working on the first version of what would become Apache Lucene, a full-text search library.  It's what powers the sub-second query results that you expect from Google.  Great, with fast search, we can now inspect data.<br />
+							With the help of Mike Cafarella, Doug created what is now Apache Nutch, a crawler, spider, or otherwise a data-scraping robot.  They started to literally crawl the entire Internet, and with Lucene were able to search across everything crawled almost instantly.<br />
+							As you may assume, crawling and searching the entire Internet is a larger order.<br />
+							It was around 2002 where they started to experience scalability issues and started to design a system in software that was schemaless, durable and self-healing, and could be deployed on commodity hardware.<br />
+						</aside>
 					</section>
 
-					<section data-background-transition="fade" data-background-color="#009687">
-						<h1 class="pb-4">A look at 2009, or 2019?</h1>
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<div class="timeline-container timeline-vertical">
+							<div class="left">
+								<div class="event fragment fade-right" style="margin-top:20vh;">
+									<h3>2003</h3>
+									<div class="body">
+										<h2>GFS</h2>
+										<p>Google File System</p>
+										<p><em>Scalable FS</em></p>
+									</div>
+								</div>
+							</div>
+							<div class="middle-line">
+							</div>
+							<div class="right">
+								<div class="event fragment fade-left" style="margin-top:50vh;">
+									<h3>2004</h3>
+									<div class="body">
+										<h2>NDFS</h2>
+										<p>Nutch Distributed File System</p>
+										<p><em>GFS, but in Java!</em></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<aside class="notes">
+							Around this time, Google releases their specification for Google File System which solved many of the issues Doug and Mike were facing so they set to implement it in Java and thus the Nutch Distributed File System was born.<br />
+							Now that these projects could tackle the task of crawling, searching, and storing large quantities of data, there was the challenge of processing this data in a distributed fashion.  Most other solutions would transport the data to a large computational engine and then ship the results out.  At this sort of scale that was unfeasible.
+						</aside>
+					</section>
+
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<div class="timeline-container timeline-vertical">
+							<div class="left">
+								<div class="event fragment fade-right" data-fragment-index="1" style="margin-top:20vh;">
+									<h3>2005</h3>
+									<div class="body">
+										<h2>MapReduce</h2>
+										<p>Integrated with Nutch</p>
+									</div>
+								</div>
+								<div class="event fragment fade-right" data-fragment-index="3" style="margin-top:30vh;">
+									<h3>2007</h3>
+									<div class="body">
+										<h2>Yahoo! Hadoop</h2>
+										<p>1000-nodes in Production</p>
+									</div>
+								</div>
+							</div>
+							<div class="middle-line">
+							</div>
+							<div class="right">
+								<div class="event fragment fade-left" data-fragment-index="2" style="margin-top:40vh;">
+									<h3>2006</h3>
+									<div class="body">
+										<h2>Hadoop was born</h2>
+										<p><img src="/img/events/cloudera_webinar/Hadoop_logo.png" class="img-fix-stretch stretch" alt="Hadoop" /></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<aside class="notes">
+							Enter MapReduce, by Jeffery Dean and Sanjay Ghemawat (Gimma-watt).  MapReduce solved parallelization, distribution, and fault-tollerance by Mapping parts of a job to all nodes, and then Reducing slices of the work back down to the final results.<br />
+							Around this time, the different projects were moved from sub-projects of the Lucene organization, into a new Hadoop ecosystem which consisted of Hadoop Common, HDFS, and MapReduce.<br />
+							Hadoop started to pick up steam, enough to where Yahoo! (if anyone remembers them) replaced their legacy C++ based search engine with Hadoop and within 6 months were running a 1000-node cluster in production.  How could a Java program replace a robust C++ system?  Surprisingly it did so with relative ease.
+						</aside>
+					</section>
+
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<div class="timeline-container timeline-vertical">
+							<div class="left">
+								<div class="event fragment fade-right" data-fragment-index="2" style="margin-top:12vh;">
+									<h3>2008</h3>
+									<div class="body" style="max-width:calc(100% - 16rem)">
+										<h2>Ecosystem Explosion</h2>
+										<p>
+											<img data-fragment-index="3" src="/img/events/cloudera_webinar/hbase_logo_with_orca_large.png" alt="HBase" class="fragment fade-up img-fix-stretch" style="max-width:40%;margin:1.5%;" />
+											<img data-fragment-index="4" src="/img/events/cloudera_webinar/zookeeper-image.png" alt="Zookeeper" class="fragment fade-up img-fix-stretch" style="max-width:40%;margin:1.5%;" />
+											<img data-fragment-index="5" src="/img/events/cloudera_webinar/pig-image.png" alt="Pig" class="fragment fade-up img-fix-stretch" style="max-width:40%;margin:1.5%;" />
+											<img data-fragment-index="6" src="/img/events/cloudera_webinar/Apache_Hive_logo.svg.png" alt="Hive" class="fragment fade-up img-fix-stretch" style="max-width:40%;margin:1.5%;" />
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="middle-line">
+							</div>
+							<div class="right">
+								<div class="event fragment fade-left" data-fragment-index="1" style="margin-top:10vh;">
+									<h3>2008</h3>
+									<div class="body" style="max-width:calc(100% - 16rem)">
+										<h2>ASF Induction</h2>
+										<p><img src="/img/events/cloudera_webinar/Hadoop_logo_new.png" class="img-fix-stretch" alt="Apache Hadoop" /></p>
+									</div>
+								</div>
+								<div class="event fragment fade-left" data-fragment-index="7" style="margin-top:10vh;">
+									<h3>2008</h3>
+									<div class="body" style="max-width:calc(100% - 16rem)">
+										<p><img class="img-fix-stretch" src="/img/global/vendor_logos/Cloudera_logo_white.png" alt="Cloudera" /></p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<aside class="notes">
+							Between the community and Hadoop's use in production, Hadoop was graduated to a top-level Apache Software Foundation project.<br />
+							After this, we saw an explosion of other projects submitted to be part of the Hadoop ecosystem<br />
+							<ul>
+								<li>HBase offered a natural database on top of the scalable HDFS</li>
+								<li>Zookeeper aided in coordinating the distributed systems</li>
+								<li>Yahoo contributed their Pig programming language that extended MapReduce</li>
+								<li>Facebook contributed Hive, the first incarnation of SQL on top of MapReduce</li>
+								<li>And if that weren't enought, in 2008 Cloudera was founded by Hadoop experts from BerkleyDB, Google, Facebook, and Yahoo!</li>
+							</ul>
+						</aside>
+					</section>
+
+					<section data-background-transition="slide" data-background-color="#65c2cb">
+						<h1>2009</h1>
+						<img data-fragment-index="1" class="img-fix-stretch fragment fade-up" style="width:30%;margin:1%;" src="/img/events/cloudera_webinar/amazon_emr.png" alt="Amazon EMR" />
+						<img data-fragment-index="3" class="img-fix-stretch fragment fade-up mt-4" style="width:20%;margin:0 10rem 0 0;" src="/img/events/cloudera_webinar/YahooLogo.png" alt="Yahoo" /><br />
+						<img data-fragment-index="2" class="img-fix-stretch fragment fade-up mb-5" style="width:35%;margin:1%;" src="/img/events/cloudera_webinar/1200px-Hortonworks_logo.svg.png" alt="Hortonworks" />
+
+						<aside class="notes">
+							There are too many events in the history of the Hadoop ecosystem to chart through all of them at this point, but a few to make mention are:
+							<ul>
+								<li>By March 2009, Amazon was already offering MapReduce hosting, Elastic MapReduce.</li>
+								<li>In June of 2011, Hortonworks was founded by 8 Apache Hadoop Committee members from Yahoo!</li>
+								<li>By 2012, Yahoo!'s Hadoop cluster hit over 42,000 nodes, and there are over 1,200 contributors to the Hadoop projects.</li>
+							</ul>
+						</aside>
+					</section>
+				</section>
+
+
+				<section>
+
+					<section data-background-color="#01021a">
+						<h1>Enterprise Data</h1>
+						<h2 class="alt-text pt-3 pb-3">Big Data is a Big Deal</h2>
+						<aside class="notes">
+							At this point, you'd think we have the world's problems solved, but Enterprise-ready Data Management required even more as things evolved.
+						</aside>
+					</section>
+
+					<section data-background-video="/img/events/cloudera_webinar/globalexpandloop.mp4" data-background-video-loop="loop">
+						<div style="padding:2rem;background:rgba(0,0,0,0.8)">
+							<h1>World-Renown</h1>
+							<h2 class="alt-text pt-3 pb-3">Growing Pains</h2>
+						</div>
+						<aside class="notes">
+							Hadoop has helped solve some issues related to cost, distribution, and scale and is used around the world, though as the deployment of enterprise data was adopted additional challenges were presented.
+						</aside>
+					</section>
+
+					<section data-background-transition="fade" data-background-color="#01021a">
+						<h1 class="pb-4">Compartmentalization</h1>
 						<div class="siloHolder">
 							<div class="siloRow">
 								<div class="silo"></div>
-								<div class="silo active">Servers</div>
-								<div class="silo active">Cloud</div>
+								<div class="silo active">Logs</div>
+								<div class="silo active">IoT</div>
 								<div class="silo"></div>
 								<div class="silo active">Network</div>
 								<div class="silo trans"></div>
@@ -332,7 +636,7 @@
 								<div class="silo">
 								</div>
 								<div class="silo active">
-									Containers
+									Streams
 								</div>
 								<div class="silo">
 								</div>
@@ -340,367 +644,228 @@
 								</div>
 							</div>
 							<div class="siloRow">
-								<div class="silo active">Security</div>
+								<div class="silo active">Events</div>
 								<div class="silo trans"></div>
 								<div class="silo active">CI/CD</div>
 								<div class="silo"></div>
-								<div class="silo active">Apps</div>
+								<div class="silo active">EDW</div>
 								<div class="silo trans"></div>
 							</div>
 						</div>
+						<aside class="notes">
+							As organizations started to adopt Enterprise Data practices, there was soon an issue with having many different data silos.<br />
+							Often these different silos were disconnected, housed different kind of data, and rarely was a like format.<br />
+							So what many had were snapshots of different points of insight, without a way to get the value of corellating that data.
+						</aside>
 					</section>
 
-					<section data-background-transition="fade" data-background-color="#009687">
-						<h1 class="pb-4">Challenges for Enterprise-wide Automation</h1>
-						<img class="img-fix-stretch stretch" src="/img/events/ossecconf2019/raw_triblock.png">
-					</section>
-
-					<section data-background="/img/events/ossecconf2019/simpleScale.png" data-background-size="contain">
-					</section>
-
-					<section data-background="/img/events/ossecconf2019/automationforeveryone.png" data-background-size="contain">
-					</section>
-
-					<section data-background="/img/events/ossecconf2019/simplepowerfulagentless.png" data-background-size="contain">
-					</section>
-
-					<section data-background="/img/events/ossecconf2019/sixblock.png" data-background-size="contain">
-					</section>
-
-					<section data-background-transition="fade" data-background-color="#009687">
-<pre class="kemo-fix" style="position:absolute;"><code class="hljs" data-trim contenteditable>
----
-- name: install and start apache
-  hosts: all
-  vars:
-    http_port: 80
-    max_clients: 200
-  remote_user: root
-
-  tasks:
-  - name: install httpd
-    yum: pkg=httpd state=latest
-
-  - name: write the apache config file
-    template:
-      src: /srv/httpd.j2
-      dest: /etc/httpd.conf
-
-  - name: start httpd
-    service:
-      name: httpd
-      state: started
-      enabled: true
-</code></pre>
-						<div style="position:relative;top:100px;" class="fragment fade-up">
-							<img src="/img/events/ossecconf2019/ncagewow.gif" style="float:right;width:640px;height:360px;" />
+					<section data-background-video="/img/events/cloudera_webinar/v2.mp4" data-background-video-loop="loop">
+						<div style="padding:2rem;background:rgba(0,0,0,0.8)">
+							<h1>Data Integration</h1>
+							<h2 class="alt-text pt-3 pb-3">B2B, B2C, B2B2C2U</h2>
 						</div>
+						<aside class="notes">
+							As data drove more and more value and helped move IT from a cost-center to a revenue generating part of the business, integrations became mandatory.<br />
+							Not simply between different teams or systems in your organization, but interchanges between businesses helped pave the way for the hyper-aware and hyper-active capabilties that now give us the ability to know within moments of when an Amazon package has been delivered.
+						</aside>
+					</section>
+
+					<section data-background-video="/img/events/cloudera_webinar/v5.mp4" data-background-video-loop="loop">
+						<div style="padding:2rem;background:rgba(0,0,0,0.8)">
+							<h1>Data Science</h1>
+							<h2 class="alt-text pt-3 pb-3">More than just your Likes</h2>
+						</div>
+						<aside class="notes">
+							With the additional integrated repositories of data and a scalable platform, analysts and scientists could now create and employ models that were previously technologically impossible.<br />
+							This science can range from predictive measures on equipment, to social-economic patterns on a global scale, the tracking of public epidemics, exploration into the depths of the Genome, and personalization functions that improve engagement.
+						</aside>
+					</section>
+
+					<section data-background-video="/img/events/cloudera_webinar/v3.mp4" data-background-video-loop="loop">
+						<div style="padding:2rem;background:rgba(0,0,0,0.8)">
+							<h1>Data Security</h1>
+							<h2 class="alt-text pt-3 pb-3">Don't get Equifuxed</h2>
+						</div>
+						<aside class="notes">
+							Data has accelerated business and the missions of many agencies, however as the value of commodities like data increase, so does the appeal to malicious parties.<br />
+							Throughout the years, and even more so in the recent few, we've seen time and time again about an organization or agency that has been breached.<br />
+							Now, imagine the number of systems breached and the amount of data that has been exfiltrated or tampered with that hasn't been detected or reported.<br />
+							Organizations now more than ever have the requirement and often legal responsibility to keep their data campaigns secure.
+						</aside>
+					</section>
+
+
+					<section data-background-video="/img/events/cloudera_webinar/v4.mp4" data-background-video-loop="loop">
+						<img class="img-fix-stretch fragment fade-up" style="width:30%;margin:8%" src="/img/global/vendor_logos/Cloudera_logo_white.png" alt="Cloudera" />
+						<img class="img-fix-stretch fragment fade-up" style="width:30%;margin:8%" src="/img/global/vendor_logos/hortonworks-logo-white.png" alt="Cloudera" />
+						<aside class="notes">
+							Throughout the years, the Hadoop ecosystem responded to these challenges.<br />
+							Cloudera put years of work into next generation sciences that enabled new forms of Machine Learning and AI.<br />
+							Hortonworks provided the development into advancing expanding the Hadoop foundations to produce an enterprise-ready data platform.
+						</aside>
+					</section>
+
+					<section data-background-video="/img/events/cloudera_webinar/v4.mp4" data-background-video-loop="loop">
+						<img class="img-fix-stretch" style="width:50%;margin:8%" src="/img/global/vendor_logos/Cloudera_logo_white.png" alt="Cloudera" />
+						<aside class="notes">
+							And now, thanks to the merger, the band is back together again as I like to say.  Cloudera is now unified with the most robust Data Science Open-Source platform.
+						</aside>
 					</section>
 
 				</section>
 
+				<section>
+
+					<section data-background-color="#293c46">
+						<img class="img-fix-stretch" style="width:50%;margin:8%" src="/img/global/vendor_logos/CLDR.webp" alt="Cloudera" />
+						<aside class="notes">
+							Now, with a fresh coat of paint and the best and brightest all under one roof, Cloudera has come out of the gate with incredible speed in order to define their unified solutions and to get them in customer hands as soon as possible.<br />
+							Cloudera is now poised to power all of your data....
+						</aside>
+					</section>
+					<section data-transition="slide-out" data-background-color="#293c46">
+						<aside class="notes">
+							 be that on-premise, or in the cloud....
+						</aside>
+					</section>
+
+					<section data-transition="fade" data-background="/img/events/cloudera_webinar/clo_edgetoai_1024x512.jpg" data-background-size="cover">
+						<aside class="notes">
+							 ...and from Edge to AI.
+						</aside>
+					</section>
+					<section data-transition="slide-out" data-background-color="#293c46">
+					</section>
+					<section data-transition="fade-in" data-background-color="#293c46">
+						<img class="img-fix-stretch" style="width:70%;" src="/img/events/cloudera_webinar/enterprise-data-cloud-diagram.gif" alt="Cloudera" />
+						<aside class="notes">
+							Being able to gather, transform, stream, and store everywhere, around any device, in any environment and between them is critical to efficient data campaigns.<br />
+							This capability is what's empowering people to get clear and actionable insights from complex data anywhere and makes hybrid-cloud data platforms a reality.
+						</aside>
+					</section>
+
+					<section data-transition="fade-in" data-background-color="#293c46">
+						<img class="img-fix-stretch" style="width:70%;" src="/img/events/cloudera_webinar/xenterprise-data-cloud-architecture.gif.pagespeed.ic.NlNCAqlnH4.webp" alt="Cloudera" />
+						<aside class="notes">
+							What Cloudera is bringing to the table is their Enterprise Data Cloud.<br />
+							IT Operations can provide the framework for your organization's data campaigns in any environment with an extensible platform.<br />
+							Business can rest assured knowing that between these different clouds and data centers that the legal obligations imposed upon the data can be represented as a data governance policy in combination with Multi-Layer Security mechanisms.<br />
+							Your Analysts and Scientists couldn't care less about the platform - Cloudera is enabling them to jump right into their work, using whatever tools they'd like, in a streamlined fashion to evolve expiriments into models, into jobs, and into the value that drives your mission.
+						</aside>
+					</section>
+					<section data-transition="slide-out" data-background-color="#293c46">
+					</section>
+					<section data-transition="slide-out" data-background-color="#fafafa">
+					</section>
+
+				</section>
 
 				<section>
 
-					<section>
-						<h1>Ansible for Security</h1>
-						<h2 class="alt-text pt-3 pb-3">Plays well with Blue/Red Teamers and SOC Analysts</h2>
-					</section>
 
-					<section data-background="/img/events/ossecconf2019/tower.png" data-background-size="contain">
-					</section>
-
-					<section>
-						<h1>Ansible Tower for Security</h1>
-						<ul>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Central Hub of Automation</strong> - No Ansible CLI on admin laptops</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Event Streaming</strong> - View every job run, when, and by who</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Schedule Jobs</strong> - Push configuration recurringly and produce reports often</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Plays Well With Others</strong> - Ship to Splunk, pull in from Jenkins, notify Slack</h3></li>
-						</ul>
-					</section>
-
-					<section>
-						<h1>Ansible for <strong class="text-alt-red">Red Teams</strong></h1>
-						<div style="width:44%;float:left;margin:0 3%;">
-							<ul class="list-unstyled">
-								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Transport Mechanism</strong><br />Roll over SSH & WinRM</h3></li>
-								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Extensible</strong><br />Python powered</h3></li>
-								<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt-red">Dynamic Inventory & Playbooks</strong><br />Like mad inception, bro</h3></li>
-							</ul>
+					<section data-background-video="/img/events/cloudera_webinar/geometric-tunnel_wjd0nkzzh__D.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5" style="background:rgba(0,0,0,0.5)">
+							<h1 class="pt-5 pb-5">Cloudera Product Roadmap</h1>
 						</div>
-						<div style="width:50%;float:left;margin:0;">
-							<h2 class="fragment fade-up">You could...</h2>
+						<aside class="notes">
+							Now for a quick look at how things are shaping up with the merger of these technology platforms.
+						</aside>
+					</section>
+
+					<section data-transition="fade" data-background-color="#fafafa">
+					</section>
+
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v6.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pb-5" style="background:rgba(0,0,0,0.5)">
+							<h1 class="pt-5 pb-5">Roadmap</h1>
 							<ul>
-								<li class="fragment fade-up pt-2 pb-2"><h3><strong class="text-alt-red">Pop shells</strong></h3></li>
-								<li class="fragment fade-up pt-2 pb-2"><h3>Interact with network devices</h3></li>
-								<li class="fragment fade-up pt-2 pb-2"><h3><strong class="text-alt-red">Build self-propogating payloads</strong></h3></li>
-								<li class="fragment fade-up pt-2 pb-2"><h3>..and more!</h3></li>
+								<li class="fragment"><h2 class="pt-4 pb-4">Containers, Kubernetes, and OpenShift</h2></li>
+								<li class="fragment"><h2 class="pt-4 pb-4 text-alt">Cloudera Data Science Workbench on Hortonworks</h2></li>
+								<li class="fragment"><h2 class="pt-4 pb-4">Streaming Analytics with Cloudera DataFlow</h2></li>
 							</ul>
-							<br />
-							<img class="fragment fade-up" src="/img/events/ossecconf2019/evildevil.gif" width="70%" />
 						</div>
+						<aside class="notes">
+							The merger was bolstered by the symbiotic ways Hortonworks and Cloudera were developing the technologies. <br />
+							The latest releases of Hortonworks Data Platform and Cloudera's CDH have embraced and modernized on other enterprise open-source technologies such as Kubernetes and Red Hat's OpenShift.<br />
+							We're seeing the first round of Cloudera and Hortonworks collaborations bare fruit - you're now able to run Cloudera Data Science Workbench on HDP for a way to quickly rally around your expiriments.<br />
+							One of the latest developments is the integration of Apache Nifi into the Cloudera Enterprise Data Cloud platform as Cloudera Data Flow, a scalable, real-time streaming analytics platform.<br />
+							There are other things that have been speculated based on the previous work laided out by the community and the two companies, such as Cloudera DataFlow packaging for ARM platforms, deeper Continuous Integration/Continuous Development capabilties, and more.  However with everything still being in motion it's too early too tell, though Cloudera has committed to ensuring the Cloudera Data Platform is 100% Open-Source.
+						</aside>
 					</section>
 
-					<section>
-						<h1>Ansible for <strong class="text-alt">Blue Teams</strong></h1>
-						<ul>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Cross-platform</strong> - Windows, *nix, Mac, IoT, Network</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Mandate Specifications</strong> - Don't let a puny human change or reset something</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Respond Faster</strong> - Detect, decide, & deploy automatically</h3></li>
-							<li class="fragment fade-up pt-3 pb-3"><h3><strong class="text-alt">Audits & Reporting</strong> - Don't just set, but also get facts and postures to produce reports or act as glue between other systems</h3></li>
-						</ul>
+					<section data-transition="fade" data-background-color="#000">
 					</section>
 
-					<section>
-						<h1 class="pb-4">OpenSCAP for Compliance</h1>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapwelcome.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">NIST 800-171 for RHEL 7</h1>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapworkbench-800-171.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">Initial Results</h1>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/scapresults.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">HTML Export & Scoring</h1>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/complianceScore.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">Auto Remediation</h1>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/betterComplianceScore.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">POW!</h1>
-						<img class="stretch img-fix-stretch" width="80%" src="/img/events/ossecconf2019/bigmissionaccomblished.jpg">
-					</section>
-
-					<section>
-						<h1 class="pb-4">Not Good Enough</h1>
-						<img class="stretch img-fix-stretch" width="60%" src="/img/events/ossecconf2019/wrong.gif">
-					</section>
-
-					<section>
-						<h1 class="pb-4">Not Good Enough</h1>
-						<ul>
-							<li class="fragment fade-up text-alt"><h3 class="pt-3 pb-3">Host-based Intrusion Detection</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Anti-{virus,malware,rootkit}</h3></li>
-							<li class="fragment fade-up text-alt"><h3 class="pt-3 pb-3">Aggrigation & Federation</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Security is a bigger onion</h3></li>
-						</ul>
-					</section>
 
 				</section>
 
-
 				<section>
 
-					<section data-background-color="#1a3f67">
-						<img class="img-fix-max" width="20%" src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png">
-						<h1>Atomicorp OSSEC</h1>
-						<h2 class="alt-text pt-3 pb-3">OH - ES - SEK</h2>
-					</section>
-
-					<section data-background-color="#1a3f67">
-						<img class="img-fix-max mb-5" width="50%" src="/img/events/ossecconf2019/ac-logo-horizontal-white.png">
-						<ul>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">The company behind OSSEC</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Builds upon community OSSEC</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Advanced Machine Learning & Integrations</h3></li>
-						</ul>
-					</section>
-
-					<section data-background-color="#1a3f67">
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/ossecarch.png">
-					</section>
-
-					<section data-background-color="#1a3f67">
-						<h1 class="pb-5">Key Highlights</h1>
-						<ul class="pt-5" style="float:left;width:45%;margin:0 2%;">
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Checks many boxes all at once</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Everything is a file</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Automation Friendly</h3></li>
-							<li class="fragment fade-up"><h3 class="pt-3 pb-3">Super simple</h3></li>
-						</ul>
-						<div style="float:left;width:45%;" class="fragment fade-up">
-							<img src="/img/events/ossecconf2019/ncagewink.gif" style="float:right;width:640px;height:600px;" />
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v7.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pb-5" style="background:rgba(0,0,0,0.5);">
+							<h1>Cloudera and You</h1>
+							<h2>WIIFM</h2>
 						</div>
+						<aside class="notes">
+							So let's say you're currently have Cloudera or Hortonworks software deployed - what does all this mean for you?
+						</aside>
 					</section>
+
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v1.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
+							<ul>
+								<li class="fragment"><h2 class="pt-4 pb-4">Dedicated to Open-Source</h2></li>
+								<li class="fragment"><h2 class="pt-4 pb-4 text-alt">Support for current deployments to Jan 2022 at least</h2></li>
+								<li class="fragment"><h2 class="pt-4 pb-4">Direct Upgrade Paths</h2></li>
+								<li class="fragment"><h2 class="pt-4 pb-4 text-alt">More Cloud Options</h2></li>
+							</ul>
+						</div>
+						<aside class="notes">
+							As a customer or member of the community you've benefiting from Cloudera's heightened commitment to Open-Source.  They're financially and operationally in a great position and are driving more developement and innovation in the ecosystem.<br />
+							Your current deployments will be supported till at least January 2022, with potential additional support options being explored.<br />
+							If you're wanting to take advantage of this new Cloudera Data Platform, have 200 bare metal servers and simply want to update, there will be a seamless upgrade path for you whether you're on a Cloudera or Hortonworks platform.<br />
+							Between the two companies they had every major public cloud provider as a larger partner, now under one roof you can expect best-of-breed hybrid and multi-cloud deployment options.
+						</aside>
+					</section>
+
+					<section data-transition="fade" data-background-color="#000">
+					</section>
+
 
 				</section>
 
-
 				<section>
 
-					<section data-background="/img/events/ossecconf2019/fusion.jpg" data-background-size="cover">
-						<h1 style="position:absolute;top:45vh;padding:3rem;background-color:rgba(0,0,0,0.85);">Automating Atomicorp with Ansible</h1>
-					</section>
-
-					<section>
-						<img class="stretch img-fix-stretch" src="/img/events/ossecconf2019/AEO.png">
-					</section>
-
-					<section>
-						<h1>Use Cases</h1>
-						<ul class="list-unstyled" style="text-align:right;width:45%;margin:0 2%;float:left;">
-							<li class="fragment fade-up"><h3><strong class="text-alt">Deploy Agents</strong></h3></li>
-							<li class="fragment fade-up"><h3><strong>Infrastructure Security as Code</strong></h3></li>
-							<li class="fragment fade-up"><h3><strong class="text-alt">Multi-Layer Security</strong></h3></li>
-							<li class="fragment fade-up"><h3><strong>Secure System of Systems Deployment</strong></h3></li>
-						</ul>
-						<div style="float:left;width:45%;" class="fragment fade-up">
-							<img src="/img/events/ossecconf2019/wow.gif" style="float:right;width:500px;height:400px;" />
+					<section data-transition="fade" data-background-image="/img/events/cloudera_webinar/sweating.gif">
+						<div class="pl-5 pr-5 pb-5 pt-5 text-left" style="background:rgba(0,0,0,0.5);position:relative;top:30vh;">
+							<h1>Live Demo</h1>
+							<h2>Cloudera Data Science Workbench</h2>
 						</div>
+						<aside class="notes">
+							Now, for everyone's favorite part of a live presentation - a tech demo!  I'd like to show you Cloudera's Data Science Workbench real quick.
+						</aside>
 					</section>
 
-					<section data-background="/img/events/ossecconf2019/Dangerous-to-go-Alone-Breath-of-the-Wild.jpg" data-background-size="cover"></section>
-
-					<section>
-						<h1>Don't forget your...</h1>
-						<ul class="list-unstyled">
-							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">Source Code Management</strong> - GitHub, GitLab, BitBucket, etc</h3></li>
-							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">CI/CD Engine</strong> - CloudBees Jenkins</h3></li>
-							<li class="fragment fade-up pt-4 pb-4"><h3><strong class="text-alt">Similar Infrastructure</strong> - Can't run software for rockets like you do emulators</h3></li>
-						</ul>
+					<section data-transition="fade" data-background-color="#000">
 					</section>
 
 				</section>
 
 				<section>
 
-					<section data-background="/img/events/ossecconf2019/rube.jpeg">
-						<h1 style="position:absolute;top:45vh;padding:3rem;background-color:rgba(0,0,0,0.85);">The Rube Goldberg of IT</h1>
+					<section data-transition="fade" data-background-color="#000">
 					</section>
 
-					<section>
-						<div class="blockHolder">
-
-							<div class="block-3 fragment fade-up">
-								<h2>Dev</h2>
-								<h3 class="text-alt">Containers</h3>
-								<h3>CI/CD Pipeline</h3>
-								<h3 class="text-alt">Security Automation</h3>
-							</div>
-							<div class="block-3 fragment fade-up">
-								<h2>Test</h2>
-								<h3 class="text-alt">Containers</h3>
-								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
-							</div>
-							<div class="block-3 fragment fade-up">
-								<h2>Prod</h2>
-								<h3 class="text-alt">Containers</h3>
-								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
-							</div>
-							<div class="block-3 fragment fade-up">
-								<h2>Enclave</h2>
-								<h3 class="text-alt">SOC</h3>
-								<h3>Management</h3>
-								<h3 class="text-alt">Orchestration</h3>
-								<h3>Auth</h3>
-								<!-- <img class="img-fix-max fragment" width="100%" src="/img/events/ossecconf2019/rh-ocp-icon.png" /> -->
-							</div>
-
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v8.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
+							<h1>Next Steps</h1>
 						</div>
 					</section>
 
-					<section>
-						<div class="blockHolder">
-							<div class="block-4">
-								<h2>Dev</h2>
-								<h3 class="text-alt">Containers</h3>
-								<h3>CI/CD Pipeline</h3>
-								<h3 class="text-alt">Security Automation</h3>
-							</div>
-
-							<div class="fragment fade-up">
-								<div class="block-8">
-									<img src="/img/events/ossecconf2019/rh-ocp-icon.png" width="45%" style="margin:2%;" class="img-fix-max fragment fade-up" />
-									<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" style="margin:2%;" width="45%" class="img-fix-max fragment fade-up" /><br />
-									<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="45%" style="margin:2%;" class="img-fix-max fragment fade-up" />
-									<img src="/img/events/ossecconf2019/ac-logo-horizontal-white.png" width="45%" style="margin:2%;position:relative;bottom:8vh;" class="img-fix-max fragment fade-up" /><br />
-									<img src="/img/events/ossecconf2019/gitlab-logo-white-rgb.png" width="45%" class="img-fix-max fragment fade-up" />
-								</div>
-							</div>
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v8.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
+							
 						</div>
-					</section>
-
-					<section>
-						<div class="blockHolder">
-							<div class="block-4 fragment fade-up">
-								<img src="/img/events/ossecconf2019/developer-winning.gif" width="100%" class="img-fix-max" />
-							</div>
-							<div class="block-4 fragment fade-up">
-								<img src="/img/events/ossecconf2019/gitlab-logo-white-rgb.png" width="100%" class="img-fix-max mt-5 pt-3" />
-							</div>
-							<div class="block-4 fragment fade-up">
-								<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" width="100%" class="pl-3 img-fix-max" />
-							</div>
-						</div>
-					</section>
-				</section>
-
-				<section>
-					<div class="blockHolder">
-						<div class="block-4">
-							<img src="/img/events/ossecconf2019/CloudBees-Full-Logo-white.png" width="100%" class="pl-3 img-fix-max" />
-						</div>
-						<div class="block-4 fragment fade-up">
-							<img src="/img/events/ossecconf2019/builder.gif" width="100%" class="img-fix-max" />
-						</div>
-						<div class="block-4 fragment fade-up">
-							<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
-						</div>
-					</div>
-				</section>
-
-				<section>
-					<div class="blockHolder">
-						<div class="block-4 text-center">
-							<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
-						</div>
-
-						<div class="block-4 fragment fade-up text-center">
-							<img src="/img/events/ossecconf2019/BouncyInconsequentialEasteuropeanshepherd-small.gif" width="100%" class="img-fix-max" />
-						</div>
-						<div class="block-4 fragment fade-up text-center">
-							<img src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png" width="100%" class="img-fix-max mt-5 pt-4" />
-						</div>
-					</div>
-				</section>
-
-
-				<section>
-					<section>
-						<div class="blockHolder">
-							<div class="block-4 text-center">
-								<img src="/img/events/ossecconf2019/ac-logo-horizontal-white-logo-only.png" width="100%" class="img-fix-max mt-5 pt-4" />
-							</div>
-							<div class="block-4 fragment fade-up text-center">
-								<img src="/img/events/ossecconf2019/250s1ae.gif" width="100%" class="img-fix-max" />
-							</div>
-
-							<div class="block-4 fragment fade-up text-center">
-								<img src="/img/events/ossecconf2019/ansible-logo-white.png" width="100%" class="img-fix-max" />
-							</div>
-						</div>
-					</section>
-					<section>
-						<img src="/img/events/ossecconf2019/radialsoup.png" width="100%" class="img-fix-stretch stretch" />
-					</section>
-
-					<section data-background="/img/events/ossecconf2019/Smart-Factory.jpg">
-						<h1 style="padding:3rem;position:absolute;top:75vh;background-color:rgba(0,0,0,0.85);">Secure Software Factory</h1>
-					</section>
-
-					<section data-background-color="#539536">
-						<img src="/img/events/ossecconf2019/compliance.gif" class="img-fix-stretch stretch" />
 					</section>
 
 				</section>
@@ -708,7 +873,40 @@
 				<section data-background="/img/events/ossecconf2019/questions-anyone-anyone.jpg" data-background-size="contain">
 				</section>
 
-				<section data-background="/img/global/thankyou.png" data-background-size="contain">
+				<section data-transition="fade" data-background-color="#000">
+				</section>
+
+				<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v9.mp4" data-background-video-loop="loop">
+					<div class="text-center fragment fade-down" style="position:relative;top:-5vh;">
+						<img src="/img/global/FSW-SquareLogo_white.png" style="max-width:15vw;" class="img-fix-stretch" alt="Fierce Software" />
+					</div>
+						<div class="text-right" style="position:relative;top:-15vh;">
+							<div class="fragment fade-up" style="width:42%;margin:2%;float:left;">
+								<h2 class="text-shadow">&nbsp;</h2>
+								<p class="lead text-shadow">&nbsp;<br />&nbsp;</p>
+								<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
+									<div class="text-left">
+										<ul class=" text-left">
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="fragment fade-up" style="width:42%;margin:2%;float:right;">
+								<h2 class="text-shadow">Thank You</h2>
+								<p class="lead text-shadow">For more on our Training, Webinars, Workshops and more...</p>
+									<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
+										<div class="text-left">
+										<ul class="list-unstyled text-left">
+											<li class="mt-3 mb-3"><i class="fa fa-fw fa-globe"></i> fiercesw.com</li>
+											<li class="mt-3 mb-3 text-alt"><i class="fa fa-fw fa-envelope"></i> cloudera@fiercesw.com</li>
+											<li class="mt-3 mb-3"><i class="fa fa-fw fa-map-pin"></i> Herndon, VA</li>
+											<li class="mt-3 mb-3 text-alt"><i class="fa fa-fw fa-phone"></i> 888.576.1572</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
 				</section>
 
 
