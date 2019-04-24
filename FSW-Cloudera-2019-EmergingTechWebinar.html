@@ -349,6 +349,17 @@
 	        bottom: 0;
 	        background: rgba(255,255,255,.5);
 	    }
+			.color-overlay:after {
+			    position: absolute;
+			    content: "";
+			    height: 100%;
+			    width: 100%;
+			    top: 0;
+			    left: 0;
+					opacity:0.3;
+			    /* background: linear-gradient(to bottom, rgba(255,0,0,0) 0%,rgba(255,0,0,0.65) 100%); */
+			    background: radial-gradient(rgb(39, 100, 212) 50%, rgb(0, 0, 0) 90%);
+			}
 		</style>
 	</head>
 	<body>
@@ -673,7 +684,7 @@
 					<section data-background-video="/img/events/cloudera_webinar/v5.mp4" data-background-video-loop="loop">
 						<div style="padding:2rem;background:rgba(0,0,0,0.8)">
 							<h1>Data Science</h1>
-							<h2 class="alt-text pt-3 pb-3">More than just your Likes</h2>
+							<h2 class="alt-text pt-3 pb-3">More than just Hot Dog/Not Hot Dog</h2>
 						</div>
 						<aside class="notes">
 							With the additional integrated repositories of data and a scalable platform, analysts and scientists could now create and employ models that were previously technologically impossible.<br />
@@ -863,8 +874,31 @@
 					</section>
 
 					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v8.mp4" data-background-video-loop="loop">
-						<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
-							
+						<div class="pl-5 pr-5 pt-5 pb-5 mb-5" style="background:rgba(0,0,0,0.75);">
+							<h1>Next Steps</h1>
+						</div>
+						<div class="color-overlay" style="margin:0rem auto;width:50%;float:left;">
+							<video loop autoplay style="max-width:100%;max-height:100%;margin-left:6%;float:left;">
+								<source src="/img/events/cloudera_webinar/PSClouderaKPIBHeaderCrop.mp4" type="video/mp4" />
+							</video>
+						</div>
+						<div style="float:right;margin-right:6%;width:35%;">
+							<img style="margin-top:5rem;" src="/img/events/cloudera_webinar/qr.png" />
+						</div>
+						<div style="float:left;width:100%; margin:3rem;">
+							<h3>https://go.fiercesw.com/p/cloudera-civilian-sciences</h3>
+						</div>
+					</section>
+
+					<section data-transition="fade" data-background-video="/img/events/cloudera_webinar/v8.mp4" data-background-video-loop="loop">
+						<div class="pl-5 pr-5 pt-5 pb-5 mb-5" style="background:rgba(0,0,0,0.75);">
+							<h1>Next Steps</h1>
+						</div>
+						<div class="color-overlay" style="margin:0rem auto;width:100%;float:left;">
+							<img src="/img/events/cloudera_webinar/fswGit.jpg" />
+						</div>
+						<div style="float:right;width:100%; margin:3rem;">
+							<h3>@FierceSoftware</h3>
 						</div>
 					</section>
 
@@ -886,7 +920,7 @@
 								<p class="lead text-shadow">&nbsp;<br />&nbsp;</p>
 								<div class="pl-5 pr-5 pt-5 pb-5" style="background:rgba(0,0,0,0.75);">
 									<div class="text-left">
-										<ul class=" text-left">
+										<ul class="text-left">
 										</ul>
 									</div>
 								</div>
