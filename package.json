@@ -1,23 +1,22 @@
 {
-  "name": "reveal.js",
+  "name": "fierce-software-slide-decks",
   "version": "3.7.0",
-  "description": "The HTML Presentation Framework",
-  "homepage": "http://revealjs.com",
-  "subdomain": "revealjs",
+  "description": "A collection of slide decks used by Fierce Software, built on reveal.js",
+  "homepage": "https://slides.fiercesw.network",
   "main": "js/reveal.js",
   "scripts": {
     "test": "grunt test",
-    "start": "npm serve",
+    "start": "node server.js",
     "build": "grunt"
   },
   "author": {
-    "name": "Hakim El Hattab",
-    "email": "hakim.elhattab@gmail.com",
-    "web": "http://hakim.se"
+    "name": "Ken Moini",
+    "email": "ken@kenmoini.com",
+    "web": "https://kenmoini.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/hakimel/reveal.js.git"
+    "url": "git://github.com/kenmoini/slide-decks.git"
   },
   "engines": {
     "node": ">=4.0.0"
