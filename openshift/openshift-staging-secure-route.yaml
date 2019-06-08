@@ -5,6 +5,7 @@ metadata:
     app: sites-slides-fiercesw-network
   name: sites-slides-fiercesw-network
 spec:
+  host: slides.stage.fiercesw.network
   port:
     targetPort: 8080-tcp
   tls:
