@@ -1,0 +1,223 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  annotations:
+    pipeline.alpha.openshift.io/uses: '[{"name": "jenkins", "namespace": "", "kind": "DeploymentConfig"}]'
+  labels:
+    app: sites-slides-fiercesw-network
+    name: sites-slides-fiercesw-network-cicd-pipeline
+    purpose: cicd-pipeline
+  name: sites-slides-fiercesw-network-pipeline
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    type: None
+  strategy:
+    jenkinsPipelineStrategy:
+      env:
+        - name: DEV_PROJECT
+          value: test-site-slides-fiercesw-network
+        - name: STAGE_PROJECT
+          value: stage-site-slides-fiercesw-network
+        - name: PROD_PROJECT
+          value: site-slides-fiercesw-network
+      jenkinsfile: |-
+        def version
+        pipeline {
+          agent {
+            label 'nodejs'
+          }
+          options {
+            timeout(time: 45, unit: 'MINUTES') 
+          }
+          stages {
+            stage('Get source') {
+              steps {
+                git branch: 'master', url: 'https://github.com/FierceSoftware/sites-slides-fiercesw.network.git'
+              }
+            }
+            stage('Get version from package.json') {
+              steps {
+                  script {
+                    version = sh (
+                        script: "cat package.json | grep version | head -1 | awk -F: '{ print \$2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'",
+                        returnStdout: true
+                    )
+                    echo "${version}"
+                  }
+              }
+            }
+            stage('Install packages') {
+              steps {
+                sh "npm install"
+                }
+              }
+            stage('Build site') {
+              steps {
+                sh "npm run build"
+              }
+            }
+            stage('Run tests?') {
+              steps {
+                sh "npm run test"
+              }
+            }
+            stage('Create Image Builder') {
+                when {
+                  expression {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        return !openshift.selector("bc", "sites-slides-fiercesw-network").exists();
+                      }
+                    }
+                  }
+                }
+                steps {
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        //openshift.newBuild("--name=sites-fiercesw-network", "--image-stream=nodejs:10", "--binary=true", "--strategy=docker", "--dockerfile=openshift/Dockerfile-builder-image")
+                        //openshift.newBuild("--name=sites-fiercesw-network", "--binary=true", "--strategy=docker", "--docker-image=registry.access.redhat.com/ubi7/ubi")
+                        //openshift.newBuild("--name=sites-fiercesw-network", "--strategy=docker", "--dockerfile='openshift/Dockerfile-builder-image'")
+                        openshift.newBuild("--name=sites-slides-fiercesw-network", "--image-stream=nodejs:8", "--binary=true")
+                      }
+                    }
+                  }
+                }
+              }
+              
+              stage('Build Image in TEST') {
+                steps {
+                  sh "rm -rf oc-builds && mkdir -p oc-builds"
+                  sh "tar --exclude='./node_modules' --exclude='./.git' --exclude='./oc-builds' -zcf oc-builds/build.tar.gz ."
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        openshift.selector("bc", "sites-slides-fiercesw-network").startBuild("--from-archive=oc-builds/build.tar.gz", "--wait=true")
+                      }
+                    }
+                  }
+                }
+              }
+              /*
+              
+              stage('Create DEV') {
+                when {
+                  expression {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        return !openshift.selector('dc', 'sites-slides-fiercesw-network').exists()
+                      }
+                    }
+                  }
+                }
+                steps {
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        def app = openshift.newApp("sites-slides-fiercesw-network:latest")
+                        app.narrow("svc").expose();
+                        def dc = openshift.selector("dc", "sites-slides-fiercesw-network")
+                        while (dc.object().spec.replicas != dc.object().status.availableReplicas) {
+                            sleep 20
+                        }
+                        openshift.set("triggers", "dc/sites-slides-fiercesw-network", "--manual")
+                      }
+                    }
+                  }
+                }
+              }
+              stage('Deploy DEV') {
+                steps {
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.DEV_PROJECT) {
+                        openshift.selector("dc", "sites-slides-fiercesw-network").rollout().latest();
+                      }
+                    }
+                  }
+                }
+              }
+              */
+              stage('Promote to STAGE?') {
+                steps {
+                  timeout(time:15, unit:'MINUTES') {
+                      input message: "Promote to STAGE?", ok: "Promote"
+                  }
+                  script {
+                    openshift.withCluster() {
+                      openshift.tag("${env.DEV_PROJECT}/sites-slides-fiercesw-network:latest", "${env.STAGE_PROJECT}/sites-slides-fiercesw-network:${version}")
+                    }
+                  }
+                }
+              }
+              stage('Deploy STAGE') {
+                steps {
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.STAGE_PROJECT) {
+                        if (openshift.selector('dc', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('dc', 'sites-slides-fiercesw-network').delete()
+                        }
+                        if (openshift.selector('svc', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('svc', 'sites-slides-fiercesw-network').delete()
+                        }
+                        if (openshift.selector('route', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('route', 'sites-slides-fiercesw-network').delete()
+                        }
+                        //openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc").expose()
+                        openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc")
+                        openshift.create(readFile('openshift/openshift-staging-secure-route.yaml'))
+                      }
+                    }
+                  }
+                }
+              }
+              stage('Promote to PRODUCTION?') {
+                steps {
+                  timeout(time:30, unit:'MINUTES') {
+                      input message: "Promote to PRODUCTION?", ok: "Promote"
+                  }
+                  script {
+                    openshift.withCluster() {
+                      openshift.tag("${env.DEV_PROJECT}/sites-slides-fiercesw-network:latest", "${env.PROD_PROJECT}/sites-slides-fiercesw-network:${version}")
+                    }
+                  }
+                }
+              }
+              stage('Deploy to PRODUCTION') {
+                steps {
+                  script {
+                    openshift.withCluster() {
+                      openshift.withProject(env.PROD_PROJECT) {
+                        if (openshift.selector('dc', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('dc', 'sites-slides-fiercesw-network').delete()
+                        }
+                        if (openshift.selector('svc', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('svc', 'sites-slides-fiercesw-network').delete()
+                        }
+                        if (openshift.selector('route', 'sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('route', 'sites-slides-fiercesw-network').delete()
+                        }
+                        //openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc").expose("--hostname=slides.fiercesw.network")
+                        openshift.newApp("sites-slides-fiercesw-network:${version}")
+                        openshift.create(readFile('openshift/openshift-production-secure-route.yaml'))
+                      }
+                    }
+                  }
+                }
+              }
+          }
+        }
+    type: JenkinsPipeline
+  triggers:
+    - github:
+        secret: secret101
+      type: GitHub
+    - generic:
+        secret: secret101
+      type: Generic

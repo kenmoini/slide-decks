@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Route
+metadata:
+  labels:
+    app: sites-slides-fiercesw-network
+  name: sites-slides-fiercesw-network
+spec:
+  port:
+    targetPort: 8080-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  to:
+    kind: Service
+    name: sites-slides-fiercesw-network
+    weight: 100
+  wildcardPolicy: None
+status:
+  ingress:
+    - conditions:
+        - lastTransitionTime: '2019-06-02T08:23:38Z'
+          status: 'True'
+          type: Admitted
+      host: slides.fiercesw.network
+      routerName: router
+      wildcardPolicy: None
