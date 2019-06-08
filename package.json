@@ -1,6 +1,6 @@
 {
   "name": "fierce-software-slide-decks",
-  "version": "3.7.0",
+  "version": "1.0.1",
   "description": "A collection of slide decks used by Fierce Software, built on reveal.js",
   "homepage": "https://slides.fiercesw.network",
   "main": "js/reveal.js",
