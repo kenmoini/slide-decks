@@ -162,14 +162,14 @@ spec:
                   script {
                     openshift.withCluster() {
                       openshift.withProject(env.STAGE_PROJECT) {
-                        if (openshift.selector('dc', 'sites-slides-fiercesw-network').exists()) {
-                          openshift.selector('dc', 'sites-slides-fiercesw-network').delete()
+                        if (openshift.selector('dc', 'stage-sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('dc', 'stage-sites-slides-fiercesw-network').delete()
                         }
-                        if (openshift.selector('svc', 'sites-slides-fiercesw-network').exists()) {
-                          openshift.selector('svc', 'sites-slides-fiercesw-network').delete()
+                        if (openshift.selector('svc', 'stage-sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('svc', 'stage-sites-slides-fiercesw-network').delete()
                         }
-                        if (openshift.selector('route', 'sites-slides-fiercesw-network').exists()) {
-                          openshift.selector('route', 'sites-slides-fiercesw-network').delete()
+                        if (openshift.selector('route', 'stage-sites-slides-fiercesw-network').exists()) {
+                          openshift.selector('route', 'stage-sites-slides-fiercesw-network').delete()
                         }
                         //openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc").expose()
                         openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc")
