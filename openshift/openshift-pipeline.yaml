@@ -61,11 +61,13 @@ spec:
                 sh "npm run build"
               }
             }
+            /*
             stage('Run tests?') {
               steps {
                 sh "npm run test"
               }
             }
+            */
             stage('Create Image Builder') {
                 when {
                   expression {
@@ -170,7 +172,7 @@ spec:
                           openshift.selector('route', 'sites-slides-fiercesw-network').delete()
                         }
                         //openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc").expose()
-                        openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc")
+                        openshift.newApp("sites-slides-fiercesw-network:${version}").narrow("svc").expose("--hostname=slides.stage.fiercesw.network")
                         openshift.create(readFile('openshift/openshift-staging-secure-route.yaml'))
                       }
                     }

@@ -7,7 +7,7 @@
   "scripts": {
     "test": "grunt test",
     "start": "node server.js",
-    "build": "grunt"
+    "build": "grunt --force"
   },
   "author": {
     "name": "Ken Moini",
